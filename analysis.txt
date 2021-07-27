@@ -66,6 +66,6 @@ What's needed to improve?
 - Convert the code to Typescript and Scss to optimize and clean the code
 - DRY: optimize the onDrop function and touchEnd function with puzzle switching function
 - Add more animation and effects for mobile responsive
-- Fix the mouse event issue in Desktop version
+- Fix the mouse touch event issue in Desktop version
 - Add help modal to guid user the game's rules
 - Add blankslate for the 1st load, guide players where to start.
