@@ -1,0 +1,361 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+/* color mixing https://mycolor.space/?hex=%23EA5189&sub=1 */
+:root {
+  --border-color: #a8a8a8;
+  --background-color: #eee;
+  --text-color: #34444f;
+  --wagawin-color: #ea5189;
+  --wagawin-pallete-blue: #006C48; 
+  --wagawin-pallete-green: #00A278; 
+  --wagawin-pallete-brown: #564147; 
+}
+
+body {
+  background-color: #fff;
+}
+
+p {
+  margin: 1px 3px;
+  padding: 8px;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inputControls, .textBoxes{
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.playGrid { 
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between; 
+}
+
+.imagePuzzle {  
+  background: #ffffff url("../images/bg.svg") no-repeat center;
+  border-radius: 3px; 
+  margin: 10px 5px;
+  position: relative;
+  width: 650px;  
+  height: 400px;
+}
+
+.counterHolder {  
+  display: flex;
+  justify-content: center;
+  margin: 10px 5px;
+  padding: 10px;
+  position: relative;
+  width: 180px;
+}
+
+.counterBg {
+  align-items: center;
+  background-color: var(--wagawin-color);
+  border-radius: 50%; 
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  margin-top: 30px;
+  position: relative;
+  width: 100px;
+  z-index: 0;
+}
+
+.timeCounter{  
+  color: #fff;  
+  font-size: 40px;
+  position: absolute;
+}
+
+.timeLeft{
+  color: var(--wagawin-color);
+  padding-right: 10px;
+  display: none;
+}
+
+/* The FORM controls */
+.buttonHolder{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; 
+}
+
+.inputButton {
+  background-color: var(--wagawin-color);
+  border: 1px solid var(--background-color);
+  border-radius: 15px;
+  color: #eee;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 1px 5px;
+  padding: 10px;
+  width: 180px;
+  height: 40px;
+}
+
+input[type=text] {
+  background-color: #fff;
+  border: 1px solid var(--wagawin-color);
+  border-radius: 15px;
+  color: var(--text-color);
+  margin: 1px 5px;
+  padding: 10px;
+}
+
+.inputText {
+  width: 10rem;
+  height: 40px;  
+}
+
+.inputURL {
+  width: 20rem;
+  height: 40px;
+}
+
+input:active {
+  transform: scale(0.98);
+}
+
+input:focus{
+  outline: 1px solid #cdcdcd;
+}
+
+.inputButton:hover{
+  border-color: var(--wagawin-pallete-blue);
+  background-color: var(--wagawin-pallete-blue);
+  -webkit-transition: background-color 500ms linear;
+  -moz-transition: background-color 500ms linear;
+  -o-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+
+/* The MODAL (background) */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+}
+
+/* Modal Dialog */
+.modal-content { 
+  background-color: var(--wagawin-pallete-brown);
+  border: 3px solid var(--wagawin-color);
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+  margin: auto;
+  padding: 40px;
+  width: 300px;
+}
+
+.message-content { 
+  background-color: var(--wagawin-pallete-blue);
+  border: 3px solid var(--wagawin-color);
+  border-radius: 15px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
+  margin: auto;
+  position: relative;
+  padding: 20px;
+  width: 300px
+}
+
+.stepMessage {
+  color: #fff;
+  font-size: 18px;
+}
+
+/* The Close Button */
+.close {
+  color: var(--wagawin-color);
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 0px;
+  right: 10px;
+}
+
+.close:hover, .close:focus {
+  color: var(--background-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Change the div box style when drag event start */
+.puzzle {  
+  cursor: grab;  
+  transition: 0.3s;
+  user-select: none;    
+}
+
+.touchMove{
+  cursor: grabbing;
+  border: 5px dashed var(--wagawin-color);
+  border-radius: 5px;
+}
+
+.drag-start {
+  opacity: 0.4;
+  cursor: grabbing;
+  transform: rotate(-5deg) scale(0.75);
+}
+
+.drag-enter {
+  border: 5px dashed var(--wagawin-color);
+  border-radius: 5px;
+  transform: rotate(5deg);
+}
+
+/* The RESPONSIVE layout */
+@media (max-width: 800px) {
+  .container, .inputControls {
+    align-items: center;
+    flex: 100%;
+    flex-direction: column;
+    max-width: 100%;    
+  }
+  .playGrid {
+    align-items: center;
+    flex: 100%;
+    flex-direction: column-reverse;
+    width: 100vw;
+  }
+  .imagePuzzle, .counterHolder {
+    width: 100%;
+  }
+  .inputButton {
+    margin: 10px;
+  }
+  .inputText{
+    width: 10rem;    
+  }
+  .puzzle {
+    transition: 0s;
+  }
+  .counterBg {    
+    background-color: #fff; 
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;    
+    z-index: 0;
+  }  
+  .timeCounter{  
+    color:  var(--wagawin-color);
+    font-size: 20px;
+    position: relative;
+  }
+  .timeLeft{
+    display: block;
+    font-size: 20px;
+  }
+}
+
+.pointer {
+  display: none;
+  background-color: var(--wagawin-pallete-blue);
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+}
+
+.pointer-container {
+  /* background-color: aqua; */
+  position: absolute;
+  top: -20%;
+  width: 20px;
+  height: 70px;
+  animation: rotate 7.5s linear forwards infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 375px) {
+  .container, .inputControls {
+    align-items: center;
+    flex: 100%;
+    flex-direction: column;
+    max-width: 100%;
+  }
+  .playGrid {
+    align-items: center;
+    flex: 100%;
+    flex-direction: column-reverse;
+    width: 100vw;
+  }
+  .imagePuzzle, .counterHolder {
+    width: 100%;
+  }
+  .inputButton {
+    margin: 10px;
+  }
+  .inputText{
+    width: 8rem;    
+  }
+  .inputURL {
+    width: 18rem;
+  }
+  .textBoxes{
+    justify-content: space-between;
+  }
+  .puzzle {
+    transition: 0s;
+  }
+  .counterBg {    
+    background-color: #fff; 
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;    
+    z-index: 0;
+  }  
+  .timeCounter{  
+    color:  var(--wagawin-color);
+    font-size: 18px;
+    position: relative;
+  }
+  .timeLeft{
+    display: block;
+    font-size: 18px;
+  }
+}

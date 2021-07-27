@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Wagawin Puzzle image game</title>
+</head>
+<body>
+  <div id="container" class="container">
+    <div id="inputControls" class="inputControls">
+      <div id="textboxes" class="textBoxes">
+        <div>
+          <p>Number of rows</p>
+          <input type="text" name="rowNumber" id="rowNumber" class="inputText" tabindex="1" placeholder="3">
+        </div>
+        <div>
+          <p>Number of columns</p>
+          <input type="text" name="colNumber" id="colNumber" class="inputText" tabindex="2" placeholder="4">
+        </div>
+      </div>
+      <div>      
+        <p>Picture URL</p>
+        <input type="text" name="imageURL" id="imageURL" class="inputURL" tabindex="3" placeholder="http://...">
+      </div>
+      <div class="buttonHolder">
+        <input type="button" id="buttonUpdate" value="UPDATE" class="inputButton" tabindex="4">
+      </div>
+    </div>
+    <div id="playGrid" class="playGrid">
+      <div id="imagePuzzle" class="imagePuzzle"></div>
+      <div id="counterHolder" class="counterHolder">   
+        <div id="counterBg" class="counterBg">
+          <p class="timeLeft">Time left: </p>
+          <div id='timeCounter' class="timeCounter">0:0</div>
+          <div class="pointer-container">
+            <span id="pointer" class="pointer"></span>
+          </div>
+        </div>
+      </div> 
+    </div> 
+</div>
+<!-- The Modal -->
+<div id="modalBox" class="modal">  
+  <div class="modal-content">    
+    <p id="modalContent">Some text in the Modal..</p>
+  </div>
+</div>
+<!-- The Message -->
+<div id="modalMessage" class="modal">  
+  <div class="message-content">    
+    <span class="close">&times;</span>
+    <p id="modalMessContent">Congrats! You win the game</p>
+  </div>
+</div>
+
+<script src="src/app.js"></script>
+</body>
+</html>

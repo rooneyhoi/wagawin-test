@@ -1,0 +1,71 @@
+Kind of the game
+- puzzle game with external image URL
+
+Game settings (inputs)
+- number of row and cols to swap the image
+- image URL aka image source
+- Update button to start the game
+
+Game elements
+- the swapped image following number of row and column
+- the counter to couting down (maybe we need the maximize time setting for player, let's say 30 seconds)
+- the 'behind the scence' monitor to check if the player finish the game OR failed after the counting down time is over.
+- the alert box is used to inform the player win or loose the game
+
+User's stories: As a user I want...
+- Open the game
+- Understand the game's rules in 3-5 seconds (don't make me think)
+- Input the number of rows and columns
+- Input the image URL
+- Click the update button
+-- If the image is too big (let's say 10Mb), please let me know that I need to change  the image with a recommended size
+- See the image loading with nice counting down 3 - 2 - 1 (3000ms)
+- The counter on the right hand side start counting
+- Drag and drop the small amount of the image
+- Once I finished, the system informs that I win the game
+-- In constrast, once the counter go to 0, the system informs that I loose the game with the option: Replay / or Renew the game
+
+Scoring 
+- Whenever I put the image into the right order -> count me 1
+- By end of the game, let me know the total score/or steps I made
+
+Technical requirements
+- The game must be responsive and working on mobile devices
+- Do not use any frameworks or libararies
+- Do not use canvas
+- Write clean code
+- Support touches
+- Support mobile responsive
+
+Development steps (coding steps) - aka checklist
+- Check and get the brand's color matching - done
+- Implement responsive HTML and div elements - done
+- Implement Javascript 
+--- validate player input row, column, image URL - done
+--- check the image size - not yet
+--- grant the image to the imagePuzzle div - done
+--- display the 3-2-1 countdown - done
+--- slice the image and re-create the small divs inside imagePuzzle div - done
+--- swap the small divs - done
+--- loop and check if the player complete the puzzle OR not complete when the timer goes to 0 - done
+--- show the dialog WIN or LOOSE (ok to restart) - done
+--- add animation drag and drop to small divs - done
+--- start the countdown counter - done
+--- add touch events to support mobile - done
+--- update player's steps in the result message (modal message) - done
+
+Test data
+https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1200px-A_small_cup_of_coffee.JPG
+https://joya.info/images/content/438914-1200x700c56x50-Kaffee-mit-pflanzlicher-Milch-Barista_1200x798.jpg
+https://s3-eu-west-1.amazonaws.com/wagawin-ad-platform/media/testmode/banner-landscape.jpg 
+
+Wagawin Color blend
+https://mycolor.space/?hex=%23EA5189&sub=1 
+
+What's needed to improve?
+- Convert the code to Typescript and Scss to optimize and clean the code
+- DRY: optimize the onDrop function and touchEnd function with puzzle switching function
+- Add more animation and effects for mobile responsive
+- Fix the mouse event issue in Desktop version
+- Add help modal to guid user the game's rules
+- Add blankslate for the 1st load, guide players where to start.
