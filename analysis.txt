@@ -69,3 +69,4 @@ What's needed to improve?
 - Fix the mouse touch event issue in Desktop version
 - Add help modal to guid user the game's rules
 - Add blankslate for the 1st load, guide players where to start.
+- Fix the page's scroll issue with touch event on mobile responsive version.
