@@ -45,6 +45,7 @@ p {
   flex: 1;
   flex-direction: row;
   justify-content: space-between; 
+  touch-action: none;
 }
 
 .imagePuzzle {  
@@ -54,6 +55,7 @@ p {
   position: relative;
   width: 650px;  
   height: 400px;
+  touch-action: none;
 }
 
 .counterHolder {  
