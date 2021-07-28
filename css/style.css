@@ -18,7 +18,7 @@
 
 body {
   background-color: #fff;
-  touch-action: none;
+/* touch-action: none; */
 }
 
 p {
