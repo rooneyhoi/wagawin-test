@@ -167,10 +167,13 @@ function addDraggableEvent(){
 }
 
 function touchStart(ev){
-    console.log('start');
+  ev.preventDefault(); 
+  console.log('start');
 }
 
 function touchMove(ev){
+  ev.preventDefault(); 
+  
   // grab the location of touch
   const touchLocation = ev.targetTouches.length > 0 ? ev.targetTouches.item(0) : ev.touches.item(0);
   const touchedElement = ev.target.id;
@@ -185,6 +188,8 @@ function touchMove(ev){
 }
 
 function touchEnd(ev){
+  ev.preventDefault(); 
+  
   let originX, originY;
   const touchedElement = ev.target.id;     
   const moveDiv = document.getElementById(touchedElement);
