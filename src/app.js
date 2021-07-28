@@ -12,7 +12,7 @@ const timePointer = document.getElementById('pointer');
 btnUpdate.addEventListener('click', buttonUpdateClick);
 
 const puzzle = {
-  width: 600,
+  width: 650,
   height: 400
 }
 
@@ -55,7 +55,7 @@ function getFormValues (){
 
   originImage.src = imgURL;
   originImage.width = puzzle.width;
-  originImage.height = puzzle.height;  
+  originImage.height = puzzle.height;       
 }
 
 function checkIsNumber(){
@@ -160,7 +160,7 @@ function addDraggableEvent(){
     puzzle.addEventListener('touchend', touchEnd);
     puzzle.addEventListener('touchmove', touchMove);
 
-    // // Mouse events
+    // // Mouse events on mobile - not handle yet
     // puzzle.addEventListener('mousedown', touchStart);
     // puzzle.addEventListener('mouseup', touchEnd);
     // puzzle.addEventListener('mouseleave', touchEnd);
@@ -175,23 +175,23 @@ function touchStart(ev){
 
 function touchMove(ev){
   ev.preventDefault(); 
-  
-  // grab the location of touch
-  const touchLocation = ev.targetTouches.length > 0 ? ev.targetTouches.item(0) : ev.touches.item(0);
-  const touchedElement = ev.target.id;
-  const moveDiv = document.getElementById(touchedElement);    
-  moveDiv.style.zIndex = 2;
-  moveDiv.setAttribute('transition', '0s');
-  moveDiv.classList.add('touchMove');
+  if (!(ev.touches.length == 2 && ev.targetTouches.length == 2)){
+    // grab the location of touch
+    const touchLocation = ev.targetTouches.length > 0 ? ev.targetTouches.item(0) : ev.touches.item(0);
+    const touchedElement = ev.target.id;
+    const moveDiv = document.getElementById(touchedElement);    
+    moveDiv.style.zIndex = 2;
+    moveDiv.setAttribute('transition', '0s');
+    moveDiv.classList.add('touchMove');
 
-  // assign box new coordinates based on the touch.
-  moveDiv.style.left = touchLocation.pageX - flightZoneX - 50 + 'px';
-  moveDiv.style.top = touchLocation.pageY - flightZoneY - 50 + 'px';
+    // assign box new coordinates based on the touch.
+    moveDiv.style.left = touchLocation.pageX - flightZoneX - 50 + 'px';
+    moveDiv.style.top = touchLocation.pageY - flightZoneY - 50 + 'px';
+  }
 }
 
 function touchEnd(ev){
   ev.preventDefault(); 
-  
   let originX, originY;
   const touchedElement = ev.target.id;     
   const moveDiv = document.getElementById(touchedElement);
