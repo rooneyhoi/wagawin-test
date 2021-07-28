@@ -340,9 +340,10 @@ function checkResult(firstArray, secondArray){
 
 function resetPuzzleBackground(){
   imagePuzzle.innerHTML = '';
-  imagePuzzle.style.backgroundImage = 'url(' + '../images/bg.svg' + ')'; 
+  imagePuzzle.style.background = 'none'; 
+  imagePuzzle.style.backgroundImage = 'url(' + 'images/bg.svg' + ')'; 
   imagePuzzle.style.backgroundRepeat = 'no-repeat'; 
-  imagePuzzle.style.backgroundAttachment = 'center';    
+  imagePuzzle.style.backgroundPosition = 'center';
 };
 
 function showMessage(message){
