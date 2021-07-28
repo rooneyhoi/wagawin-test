@@ -55,7 +55,7 @@ function getFormValues (){
   originImage.width = puzzle.width;
   originImage.height = puzzle.height;  
   imagePuzzle.style.background = 'none'; 
-  imagePuzzle.style.background = 'no-repeat left/95%' + 'url(' + originImage.src + ')';
+  imagePuzzle.style.background = 'no-repeat center/95%' + 'url(' + originImage.src + ')';
 }
 
 function checkIsNumber(){
