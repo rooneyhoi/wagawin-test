@@ -20,6 +20,12 @@ window.onload = () => {
   getFormValues();
 }
 
+window.ontouchstart = function(event) {
+  if (event.touches.length > 1) { //If there is more than one touch
+      event.preventDefault();
+  }
+}
+
 function countdownStart() {  
     if (countdownNumber > 0) {
       modalBox.style.display = 'block';
