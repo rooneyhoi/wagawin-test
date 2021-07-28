@@ -74,15 +74,16 @@ function startGame(){
   playerStep = 0;
   countdownNumber = 4;
   secondCounter = 60;
-  countdownStart();
   getFormValues();
   checkIsNumber();
-  createImagePuzzle();
+  countdownStart(); 
+  setTimeout(createImagePuzzle, 4000); 
   timeCounter();
   isEqual(); 
 }
 
 function buttonUpdateClick(){  
+  imagePuzzle.style.background = 'no-repeat left/95%' + 'url(' + originImage.src + ')';
   startGame();
 }
 
