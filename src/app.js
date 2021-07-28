@@ -16,9 +16,9 @@ const puzzle = {
   height: 400
 }
 
-window.onload = () => {
-  getFormValues();
-}
+// window.onload = () => {
+//   getFormValues();
+// }
 
 window.ontouchstart = function(event) {
   if (event.touches.length > 1) { //If there is more than one touch
@@ -26,22 +26,24 @@ window.ontouchstart = function(event) {
   }
 }
 
-function countdownStart() {  
-    if (countdownNumber > 0) {
-      modalBox.style.display = 'block';
-      modalContent.innerText =  countdownNumber == 1? 'Ready!' : countdownNumber - 1;
-      countdownNumber--;
-      setTimeout(countdownStart, 1000);
-    }
-    else {
-      modalBox.style.display = 'none';         
-    }
+function countdownStart() {    
+  if (countdownNumber > 0) {
+    modalBox.style.display = 'block';
+    modalContent.innerText =  countdownNumber == 1? 'Ready!' : countdownNumber - 1;
+    countdownNumber--;
+    setTimeout(countdownStart, 1000);
+  }
+  else {
+    modalBox.style.display = 'none';         
+  }
 }
 
 function getFormValues (){ 
   imgURL = document.getElementById('imageURL').value;
   rowNumber = document.getElementById('rowNumber').value;
   colNumber = document.getElementById('colNumber').value;  
+
+  checkIsNumber();
 
   if (imgURL == ''){
     imgURL = 'https://s3-eu-west-1.amazonaws.com/wagawin-ad-platform/media/testmode/banner-landscape.jpg';
@@ -56,6 +58,8 @@ function getFormValues (){
   originImage.src = imgURL;
   originImage.width = puzzle.width;
   originImage.height = puzzle.height;  
+  imagePuzzle.style.background = 'none'; 
+  imagePuzzle.style.background = 'no-repeat left/95%' + 'url(' + originImage.src + ')';
 }
 
 function checkIsNumber(){
@@ -73,23 +77,21 @@ function checkIsNumber(){
 function startGame(){
   playerStep = 0;  
   secondCounter = 60;  
-  getFormValues();
-  checkIsNumber();
   createImagePuzzle(); 
   timeCounter();
   isEqual(); 
 }
 
-function buttonUpdateClick(){  
+function buttonUpdateClick(){      
   countdownNumber = 4;
-  imagePuzzle.style.background = 'no-repeat left/95%' + 'url(' + originImage.src + ')';
+  resetPuzzleBackground();  
+  getFormValues();  
   countdownStart();
   setTimeout(startGame, 4000);    
 }
 
 function createImagePuzzle(){
-  divPosition = [];    
-  imagePuzzle.style.background = 'none';  
+  divPosition = [];       
   imagePuzzle.innerHTML = '';
   let sliceImgId = 0
   sliceImgWidth = Math.floor(puzzle.width / colNumber);
@@ -339,6 +341,11 @@ function checkResult(firstArray, secondArray){
   return check;
 }
 
+function resetPuzzleBackground(){
+  imagePuzzle.innerHTML = '';
+  imagePuzzle.style.background = 'no-repeat center' + 'url(../images/bg.svg)';    
+};
+
 function showMessage(message){
   const stepsMessage = document.createElement('p');
   stepsMessage.innerText = 'Your steps: ' + playerStep;
@@ -352,7 +359,10 @@ function showMessage(message){
   modalMessContent.appendChild(stepsMessage);
   modalMessage.style.display = 'block';
   timePointer.style.display = 'none';
-  span.onclick = () => {modalMessage.style.display = 'none';}  
+  span.onclick = () => {
+    modalMessage.style.display = 'none';
+    resetPuzzleBackground();
+  }  
 }
 
 function isEqual (){     
@@ -360,7 +370,7 @@ function isEqual (){
 
   if(!timeoutFlag){
     showMessage('Sorry! You loose the game');       
-    cancelAnimationFrame(isEqual);
+    cancelAnimationFrame(isEqual);    
     return;
   }
 
