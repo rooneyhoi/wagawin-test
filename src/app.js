@@ -16,10 +16,6 @@ const puzzle = {
   height: 400
 }
 
-// window.onload = () => {
-//   getFormValues();
-// }
-
 window.ontouchstart = function(event) {
   if (event.touches.length > 1) { //If there is more than one touch
       event.preventDefault();
@@ -76,7 +72,7 @@ function checkIsNumber(){
 // START the game
 function startGame(){
   playerStep = 0;  
-  secondCounter = 60;  
+  secondCounter = 60;    
   createImagePuzzle(); 
   timeCounter();
   isEqual(); 
@@ -84,7 +80,8 @@ function startGame(){
 
 function buttonUpdateClick(){      
   countdownNumber = 4;
-  resetPuzzleBackground();  
+  resetPuzzleBackground();
+  
   getFormValues();  
   countdownStart();
   setTimeout(startGame, 4000);    
@@ -343,7 +340,9 @@ function checkResult(firstArray, secondArray){
 
 function resetPuzzleBackground(){
   imagePuzzle.innerHTML = '';
-  imagePuzzle.style.background = 'no-repeat center' + 'url(../images/bg.svg)';    
+  imagePuzzle.style.backgroundImage = 'url(' + '../images/bg.svg' + ')'; 
+  imagePuzzle.style.backgroundRepeat = 'no-repeat'; 
+  imagePuzzle.style.backgroundAttachment = 'center';    
 };
 
 function showMessage(message){
