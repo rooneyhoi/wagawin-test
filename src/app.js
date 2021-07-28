@@ -50,12 +50,12 @@ function getFormValues (){
   if (screen.availWidth < 800 ){
     puzzle.width = screen.availWidth;
   } else {
-    puzzle.width = 600;
+    puzzle.width = 650;
   }
 
   originImage.src = imgURL;
   originImage.width = puzzle.width;
-  originImage.height = puzzle.height;       
+  originImage.height = puzzle.height;  
 }
 
 function checkIsNumber(){
@@ -71,20 +71,20 @@ function checkIsNumber(){
 
 // START the game
 function startGame(){
-  playerStep = 0;
-  countdownNumber = 4;
-  secondCounter = 60;
+  playerStep = 0;  
+  secondCounter = 60;  
   getFormValues();
   checkIsNumber();
-  countdownStart(); 
-  setTimeout(createImagePuzzle, 4000); 
+  createImagePuzzle(); 
   timeCounter();
   isEqual(); 
 }
 
 function buttonUpdateClick(){  
+  countdownNumber = 4;
   imagePuzzle.style.background = 'no-repeat left/95%' + 'url(' + originImage.src + ')';
-  startGame();
+  countdownStart();
+  setTimeout(startGame, 4000);    
 }
 
 function createImagePuzzle(){
@@ -160,7 +160,7 @@ function addDraggableEvent(){
     puzzle.addEventListener('touchend', touchEnd);
     puzzle.addEventListener('touchmove', touchMove);
 
-    // // Mouse events on mobile - not handle yet
+    // // Mouse events
     // puzzle.addEventListener('mousedown', touchStart);
     // puzzle.addEventListener('mouseup', touchEnd);
     // puzzle.addEventListener('mouseleave', touchEnd);
