@@ -89,6 +89,7 @@ function buttonUpdateClick(){
 
 function createImagePuzzle(){
   divPosition = [];    
+  imagePuzzle.style.background = 'none';  
   imagePuzzle.innerHTML = '';
   let sliceImgId = 0
   sliceImgWidth = Math.floor(puzzle.width / colNumber);
