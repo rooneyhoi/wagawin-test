@@ -18,7 +18,7 @@
 
 body {
   background-color: #fff;
-/* touch-action: none; */
+  /* touch-action: none; */
 }
 
 p {
@@ -240,51 +240,6 @@ input:focus{
   transform: rotate(5deg);
 }
 
-/* The RESPONSIVE layout */
-@media (max-width: 800px) {
-  .container, .inputControls {
-    align-items: center;
-    flex: 100%;
-    flex-direction: column;
-    max-width: 100%;    
-  }
-  .playGrid {
-    align-items: center;
-    flex: 100%;
-    flex-direction: column-reverse;
-    width: 100vw;
-  }
-  .imagePuzzle, .counterHolder {
-    width: 100%;
-  }
-  .inputButton {
-    margin: 10px;
-  }
-  .inputText{
-    width: 10rem;    
-  }
-  .puzzle {
-    transition: 0s;
-  }
-  .counterBg {    
-    background-color: #fff; 
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: auto;    
-    z-index: 0;
-  }  
-  .timeCounter{  
-    color:  var(--wagawin-color);
-    font-size: 20px;
-    position: relative;
-  }
-  .timeLeft{
-    display: block;
-    font-size: 20px;
-  }
-}
-
 .pointer {
   display: none;
   background-color: var(--wagawin-pallete-blue);
@@ -313,6 +268,57 @@ input:focus{
   }
 }
 
+/* The RESPONSIVE layout */
+@media (max-width: 800px) {
+  .container, .inputControls {
+    align-items: center;
+    flex: 100%;
+    flex-direction: column;
+    max-width: 100%;    
+  }
+  .playGrid {
+    align-items: center;
+    flex: 100%;
+    flex-direction: column-reverse;
+    width: 100vw;
+  }
+  .imagePuzzle, .counterHolder {
+    width: 100%;
+  }
+  .inputButton {
+    margin: 10px;
+  }
+  .inputText{
+    width: 170px;    
+  }
+  input:active {
+    transform: none;
+  }
+  .inputURL {
+    width: 350px;
+  }
+  .puzzle {
+    transition: 0s;
+  }
+  .counterBg {    
+    background-color: #fff; 
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;    
+    z-index: 0;
+  }  
+  .timeCounter{  
+    color:  var(--wagawin-color);
+    font-size: 20px;
+    position: relative;
+  }
+  .timeLeft{
+    display: block;
+    font-size: 20px;
+  }
+}
+
 @media (max-width: 375px) {
   .container, .inputControls {
     align-items: center;
@@ -333,10 +339,13 @@ input:focus{
     margin: 10px;
   }
   .inputText{
-    width: 8rem;    
+    width: 170px;    
+  }
+  input:active {
+    transform: none;
   }
   .inputURL {
-    width: 18rem;
+    width: 350px;
   }
   .textBoxes{
     justify-content: space-between;
