@@ -1,4 +1,4 @@
-let imgURL, rowNumber, colNumber, countdownNumber, sliceImgWidth, sliceImgHeight, divPosition, divSufflePosition, infiniteLoop, originXY, timeoutFlag, secondCounter, playerStep;
+let imgURL, rowNumber, colNumber, countdownNumber, sliceImgWidth, sliceImgHeight, divPosition, divSufflePosition, infiniteLoop, originXY, timeoutFlag, secondCounter, playerStep, isGameReset, scaleImageWidth, scaleImageHeight;
 const originImage = new Image();
 const imagePuzzle = document.getElementById('imagePuzzle');
 const flightZoneX = imagePuzzle.clientLeft;
@@ -30,11 +30,12 @@ function countdownStart() {
     setTimeout(countdownStart, 1000);
   }
   else {
-    modalBox.style.display = 'none';         
+    modalBox.style.display = 'none';        
   }
 }
 
 function getFormValues (){ 
+  console.log(screen.availWidth);
   imgURL = document.getElementById('imageURL').value;
   rowNumber = document.getElementById('rowNumber').value;
   colNumber = document.getElementById('colNumber').value;  
@@ -46,16 +47,21 @@ function getFormValues (){
   }
 
   if (screen.availWidth < 800 ){
-    puzzle.width = screen.availWidth;
-  } else {
-    puzzle.width = 650;
-  }
+    puzzle.width = screen.availWidth;    
+  } 
 
-  originImage.src = imgURL;
-  originImage.width = puzzle.width;
-  originImage.height = puzzle.height;  
+  originImage.src = imgURL;   
   imagePuzzle.style.background = 'none'; 
-  imagePuzzle.style.background = 'no-repeat center/95%' + 'url(' + originImage.src + ')';
+  imagePuzzle.style.background = 'url(' + originImage.src + ')' + 'no-repeat top/100%';
+}
+
+function scaleImage(){
+  scaleImageWidth = parseInt(puzzle.width);
+  scaleImageHeight = (scaleImageWidth/ parseInt(originImage.width)) * parseInt(originImage.height);
+  scaleImageHeight = Math.floor(scaleImageHeight);
+
+  console.log(originImage.width + 'px' + ' ' + originImage.height + 'px');
+  console.log(scaleImageWidth, scaleImageHeight);
 }
 
 function checkIsNumber(){
@@ -69,30 +75,13 @@ function checkIsNumber(){
     return true;
 }
 
-// START the game
-function startGame(){
-  playerStep = 0;  
-  secondCounter = 60;    
-  createImagePuzzle(); 
-  timeCounter();
-  isEqual(); 
-}
-
-function buttonUpdateClick(){      
-  countdownNumber = 4;
-  resetPuzzleBackground();
-  
-  getFormValues();  
-  countdownStart();
-  setTimeout(startGame, 4000);    
-}
-
 function createImagePuzzle(){
+  scaleImage();
   divPosition = [];       
   imagePuzzle.innerHTML = '';
   let sliceImgId = 0
   sliceImgWidth = Math.floor(puzzle.width / colNumber);
-  sliceImgHeight = Math.floor(puzzle.height / rowNumber);
+  sliceImgHeight = Math.floor(scaleImageHeight / rowNumber);
 
   for (let i = 0; i < rowNumber; i++){
     for (let j = 0; j < colNumber; j++){      
@@ -117,15 +106,17 @@ function createImagePuzzle(){
       const xBackgroudPos = j * (-sliceImgWidth) + 'px';
       const yBackgroundPos = i * (-sliceImgHeight) + 'px';
       sliceImgDiv.style.backgroundImage = 'url(' + originImage.src + ')';
-      sliceImgDiv.style.backgroundSize = originImage.width + 'px' + ' ' + originImage.height + 'px';
+      sliceImgDiv.style.backgroundSize = scaleImageWidth + 'px' + ' ' + scaleImageHeight + 'px';
       sliceImgDiv.style.backgroundPosition = xBackgroudPos + ' ' + yBackgroundPos;      
 
       imagePuzzle.appendChild(sliceImgDiv);
       sliceImgId++;
     }
   }  
+
   sufflePuzzleImage();
   addDraggableEvent();   
+  imagePuzzle.style.background = 'none'; 
 }
 
 function sufflePuzzleImage(){    
@@ -300,7 +291,7 @@ function drop(ev) {
   const sourceIndex = sourcePuzzle.getAttribute('index-value'); 
   
   const targetPuzzleID = ev.target.id;   
-  console.log(sourcePuzzleID, targetPuzzleID);
+  // console.log(sourcePuzzleID, targetPuzzleID);
 
   if(sourcePuzzleID != targetPuzzleID){     
     // collect the target puzzle Position
@@ -338,8 +329,12 @@ function checkResult(firstArray, secondArray){
   return check;
 }
 
-function resetPuzzleBackground(){
+function resetPuzzleContent(){
   imagePuzzle.innerHTML = '';
+  resetPuzzleBackground();
+}
+
+function resetPuzzleBackground(){  
   imagePuzzle.style.background = 'none'; 
   imagePuzzle.style.backgroundImage = 'url(' + 'images/bg.svg' + ')'; 
   imagePuzzle.style.backgroundRepeat = 'no-repeat'; 
@@ -361,14 +356,14 @@ function showMessage(message){
   timePointer.style.display = 'none';
   span.onclick = () => {
     modalMessage.style.display = 'none';
-    resetPuzzleBackground();
+    resetPuzzleContent();
   }  
 }
 
 function isEqual (){     
   let checkEqual = checkResult(divPosition, divSufflePosition);    
 
-  if(!timeoutFlag){
+  if(!timeoutFlag && !isGameReset){
     showMessage('Sorry! You loose the game');       
     cancelAnimationFrame(isEqual);    
     return;
@@ -381,12 +376,37 @@ function isEqual (){
   } else {    
     requestAnimationFrame(isEqual);
   }
-  console.log(checkEqual);
+  // console.log(checkEqual);
 }
 
-function timeCounter() {    
-  timeoutFlag = true;
-  secondCounter += countdownNumber;
+// START the game
+function startGame(){
+  isGameReset = false;
+  playerStep = 0;  
+  secondCounter = 60;    
+  createImagePuzzle(); 
+  timeCounter();
+  isEqual(); 
+}
+
+function resetGame(){
+  cancelAnimationFrame(isEqual);
+  countdownNumber = 4;
+  secondCounter = 0;
+  isGameReset = true;
+  timePointer.style.display = 'none';  
+}
+
+function buttonUpdateClick(){      
+  resetGame();
+  resetPuzzleContent();  
+  getFormValues();  
+  countdownStart();
+  setTimeout(startGame, 4000);    
+}
+
+function timeCounter() {  
+  timeoutFlag = true;  
 
   const checkViewPort = window.matchMedia("(max-width: 800px)")
   if (!checkViewPort.matches){
@@ -402,7 +422,7 @@ function timeCounter() {
     if( secondCounter >= 0 ) {
         setTimeout(tick, 1000);
     } else {
-      timeoutFlag = false;
+      timeoutFlag = false; // issue  is here...
       document.getElementById('timeCounter').innerHTML = '0:0';     
     }
   }
